@@ -30,9 +30,11 @@ extract_domains() {
 }
 
 echo "Downloading and processing blocklists..."
-curl -fsSL --max-time 60 \
-https://raw.githubusercontent.com/bibicadotnet/blocklist_minimal/main/blocklists.txt \
-| extract_domains > "$BLOCK_TMP"
+(
+  curl -fsSL --max-time 60 https://raw.githubusercontent.com/bibicadotnet/blocklist_minimal/main/blocklists.txt
+  curl -fsSL --max-time 60 https://gitlab.com/hagezi/mirror/-/raw/main/dns-blocklists/adblock/spam-tlds-ublock.txt
+) | extract_domains > "$BLOCK_TMP"
+
 
 echo "Downloading and processing allowlists..."
 curl -fsSL --max-time 60 \
